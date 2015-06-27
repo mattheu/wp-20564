@@ -14,10 +14,10 @@ class WP_Post_Meta_Revisioning {
 	/**
 	 * Set up the plugin actions
 	 */
-	public function __construct() {
+	public function run() {
 
 		// Actions
-		//
+
 		// When restoring a revision, also restore that revisions's revisioned meta.
 		add_action( 'wp_restore_post_revision', array( $this, '_wp_restore_post_revision_meta'), 10, 2 );
 
@@ -28,8 +28,8 @@ class WP_Post_Meta_Revisioning {
 		// When creating a revision, also save any revisioned meta.
 		add_action( '_wp_put_post_revision', array( $this, '_wp_save_revisioned_meta_fields' ) );
 
-
 		//Filters
+
 		// When revisioned post meta has changed, trigger a revision save
 		add_filter( 'wp_save_post_revision_post_has_changed', array( $this, '_wp_check_revisioned_meta_fields_have_changed' ), 10, 3 );
 
@@ -227,3 +227,4 @@ class WP_Post_Meta_Revisioning {
 }
 
 $wp_Post_Meta_Revisioning = new WP_Post_Meta_Revisioning;
+$wp_Post_Meta_Revisioning->run();
